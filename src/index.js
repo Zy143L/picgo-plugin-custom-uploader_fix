@@ -1,5 +1,3 @@
-const sha1 = require('js-sha1')
-
 module.exports = (ctx) => {
   const postOptions = (image, url, postFileName, fileName, headers) => {
     const opts = {
@@ -37,24 +35,13 @@ module.exports = (ctx) => {
     }
     let url = userConfig.url
     const headers = userConfig.headers
-
-    const needFileNameUrl = userConfig.needFileNameUrl
     const postFileName = userConfig.postFileName
     const jsonPath = userConfig.jsonPath
     try {
       let imgList = ctx.output
       for (let i in imgList) {
         let image = imgList[i].buffer || Buffer.from(imgList[i].base64Image, 'base64')
-        if (needFileNameUrl) {
-          const fileName = imgList[i].fileName
-          let extension = fileName.split('.').pop()
-          let timestamp = Math.floor(new Date().getTime() / 1000)
-          let newfilename = sha1(timestamp.toString()) + '.' + extension.toLowerCase()
-          url = url + '/' + newfilename
-        }
-
         const options = postOptions(image, url, postFileName, imgList[i].fileName, headers)
-
         let res = await ctx.Request.request(options)
 
         delete imgList[i].base64Image
@@ -95,8 +82,7 @@ module.exports = (ctx) => {
     if (!userConfig) {
       userConfig = {}
     }
-    return [
-      {
+    return [{
         alias: 'API地址',
         name: 'url',
         type: 'input',
@@ -105,15 +91,7 @@ module.exports = (ctx) => {
         message: 'API地址'
       },
       {
-        alias: 'API地址是否拼接文件名',
-        name: 'needFileNameUrl',
-        type: 'confirm',
-        default: userConfig.needFileNameUrl || false,
-        required: true,
-        message: 'API地址是否拼接文件名'
-      },
-      {
-        alias: 'POST文件表单名称',
+        alias: '图片表单名称',
         name: 'postFileName',
         type: 'input',
         default: userConfig.postFileName || '',
@@ -134,7 +112,7 @@ module.exports = (ctx) => {
         type: 'input',
         default: userConfig.jsonPath || '',
         required: false,
-        message: '图片URL JSON路径(eg: data.url)'
+        message: '图片URL JSON路径(例: data.url)'
       }
     ]
   }

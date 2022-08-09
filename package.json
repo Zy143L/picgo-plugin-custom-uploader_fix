@@ -1,6 +1,6 @@
 {
   "name": "picgo-plugin-custom-uploader-fix",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "自定义API图床",
   "main": "src/index.js",
   "publishConfig": {
@@ -27,8 +27,5 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0"
-  },
-  "dependencies": {
-    "js-sha1": "^0.6.0"
   }
 }
