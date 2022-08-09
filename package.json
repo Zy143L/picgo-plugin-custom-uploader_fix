@@ -1,6 +1,6 @@
 {
-  "name": "picgo-plugin-custom-uploader",
-  "version": "1.0.3",
+  "name": "picgo-plugin-custom-uploader-fix",
+  "version": "2.0",
   "description": "自定义图床",
   "main": "src/index.js",
   "publishConfig": {
@@ -18,7 +18,7 @@
     "picgo-gui-plugin",
     "picgo-plugin"
   ],
-  "author": "deskid",
+  "author": "Zy143L",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^5.0.1",

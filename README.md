@@ -1,5 +1,6 @@
 # picgo-plugin-custom-uploader
 
+## 修复jsonpath部分
 
 
 ### 安装

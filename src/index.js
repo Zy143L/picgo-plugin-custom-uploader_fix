@@ -31,7 +31,7 @@ module.exports = (ctx) => {
   }
 
   const handle = async function (ctx) {
-    const userConfig = ctx.getConfig('picBed.custom-uploader')
+    const userConfig = ctx.getConfig('picBed.custom-uploader-fix')
     if (!userConfig) {
       throw new Error('Can\'t find uploader config')
     }
@@ -64,7 +64,11 @@ module.exports = (ctx) => {
           imgList[i]['imgUrl'] = res
         } else {
           const body = JSON.parse(res)
-          let imgUrl = body[jsonPath]
+          // let imgUrl = body[jsonPath]
+          let imgUrl = body
+          for (let field of jsonPath.split('.')) {
+            imgUrl = imgUrl[field]
+          }
           if (imgUrl) {
             imgList[i]['imgUrl'] = imgUrl
           } else {
@@ -87,7 +91,7 @@ module.exports = (ctx) => {
     }
   }
   const config = ctx => {
-    let userConfig = ctx.getConfig('picBed.custom-uploader')
+    let userConfig = ctx.getConfig('picBed.custom-uploader-fix')
     if (!userConfig) {
       userConfig = {}
     }
@@ -109,7 +113,7 @@ module.exports = (ctx) => {
         message: 'API地址是否拼接文件名'
       },
       {
-        alias: 'POST file name',
+        alias: 'POST文件表单名称',
         name: 'postFileName',
         type: 'input',
         default: userConfig.postFileName || '',
@@ -117,7 +121,7 @@ module.exports = (ctx) => {
         message: 'POST文件参数名'
       },
       {
-        alias: 'POST headers',
+        alias: '自定义请求头',
         name: 'headers',
         type: 'input',
         default: userConfig.headers || '{}',
@@ -135,14 +139,14 @@ module.exports = (ctx) => {
     ]
   }
   const register = () => {
-    ctx.helper.uploader.register('custom-uploader', {
+    ctx.helper.uploader.register('custom-uploader-fix', {
       handle,
-      name: '自定义图床',
+      name: '自定义API图床',
       config: config
     })
   }
   return {
-    uploader: 'custom-uploader',
+    uploader: 'custom-uploader-fix',
     register
   }
 }
