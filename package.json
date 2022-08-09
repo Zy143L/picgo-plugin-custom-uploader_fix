@@ -1,7 +1,7 @@
 {
   "name": "picgo-plugin-custom-uploader-fix",
   "version": "2.0",
-  "description": "自定义图床",
+  "description": "自定义API图床",
   "main": "src/index.js",
   "publishConfig": {
     "access": "public"
