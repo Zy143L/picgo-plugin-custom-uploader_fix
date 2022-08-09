@@ -108,7 +108,7 @@ module.exports = (ctx) => {
         alias: 'API地址是否拼接文件名',
         name: 'needFileNameUrl',
         type: 'confirm',
-        default: userConfig.needFileNameUrl || true,
+        default: userConfig.needFileNameUrl || false,
         required: true,
         message: 'API地址是否拼接文件名'
       },
